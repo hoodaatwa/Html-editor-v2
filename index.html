@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #1f1f1f;
+            color: white;
+        }
+
+        #script-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px; /* Add some space between the script and top-bar */
+        }
+
+        #top-bar {
+            display: flex;
+            justify-content: space-between; /* Adjusted to space between buttons */
+            gap: 10px; /* Add space between buttons */
+            background-color: #555; /* Lighter background color */
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 8px; /* Add border-radius */
+        }
+
+        #top-bar div {
+            display: flex;
+            gap: 10px;
+        }
+
+        #editor-container {
+            flex-grow: 1;
+            display: flex;
+        }
+
+        #code-input {
+            width: 50%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 14px;
+            background-color: inherit;
+            color: inherit;
+        }
+
+        #output-container {
+            width: 50%;
+            height: 100%;
+            overflow: auto;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+        }
+
+        .button {
+            padding: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+            border: none;
+            border-radius: 5px; /* Add border-radius */
+            display: flex;
+            align-items: center;
+        }
+
+        .button i {
+            margin-right: 5px;
+        }
+
+        #run-button {
+            background-color: #4caf50;
+        }
+
+        #change-orientation-button {
+            background-color: #2196f3;
+        }
+
+        #change-theme-button {
+            background-color: #f44336;
+        }
+
+        #home-button {
+            background-color: #777;
+        }
+
+        #copy-button {
+            background-color: #555;
+        }
+
+        #clear-button {
+            background-color: #777;
+        }
+
+        @media screen and (max-width: 850px) {
+            .button span {
+                display: none; /* Hide button text */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="script-container">
+        <script await type="text/javascript" class="suuu">
+            atOptions = {
+                'key': 'ae0ebd6dcf1936f4306eadb0df4cb087',
+                'format': 'iframe',
+                'height': 50,
+                'width': 320,
+                'params': {}
+            };
+            document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplayformat.com/ae0ebd6dcf1936f4306eadb0df4cb087/invoke.js"></scr' + 'ipt>');
+        </script>
+    </div>
+
+    <div id="top-bar">
+        <div>
+            <button id="run-button" class="button"><i class="fas fa-play"></i><span> Run</span></button>
+            <button id="change-orientation-button" class="button"><i class="fas fa-exchange-alt"></i><span> Change Orientation</span></button>
+            <button id="change-theme-button" class="button"><i class="fas fa-adjust"></i><span> Change Theme</span></button>
+            <button id="home-button" class="button" onclick="window.location.href='https://hoodaatwa.github.io/Main/'"><i class="fas fa-home"></i><span> Home</span></button>
+        </div>
+        <div>
+            <button id="copy-button" class="button" onclick="copyCodeToClipboard()"><i class="fas fa-copy"></i><span> Copy to Clipboard</span></button>
+            <button id="clear-button" class="button" onclick="clearCodeInput()"><i class="fas fa-trash"></i><span> Clear</span></button>
+        </div>
+    </div>
+
+    <div id="editor-container">
+        <textarea id="code-input" placeholder="Write your HTML code here..."></textarea>
+        <div id="output-container"></div>
+    </div>
+
+    <script>
+        document.getElementById("run-button").addEventListener("click", function () {
+            var codeInput = document.getElementById("code-input").value;
+            var outputContainer = document.getElementById("output-container");
+
+            // Clear previous output
+            outputContainer.innerHTML = "";
+
+            // Create an iframe to run the code
+            var iframe = document.createElement("iframe");
+            iframe.style.width = "100%";
+            iframe.style.height = "100%";
+            outputContainer.appendChild(iframe);
+
+            // Write the code into the iframe
+            iframe.contentDocument.write(codeInput);
+            iframe.contentDocument.close();
+        });
+
+        document.getElementById("change-orientation-button").addEventListener("click", function () {
+            var editorContainer = document.getElementById("editor-container");
+            var codeInput = document.getElementById("code-input");
+            var outputContainer = document.getElementById("output-container");
+
+            // Toggle between horizontal and vertical layout
+            if (editorContainer.style.flexDirection === "row") {
+                editorContainer.style.flexDirection = "column";
+                codeInput.style.width = "100%";
+                outputContainer.style.width = "100%";
+            } else {
+                editorContainer.style.flexDirection = "row";
+                codeInput.style.width = "50%";
+                outputContainer.style.width = "50%";
+            }
+        });
+
+        document.getElementById("change-theme-button").addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        function copyCodeToClipboard() {
+            var codeInput = document.getElementById("code-input");
+            codeInput.select();
+            document.execCommand("copy");
+        }
+
+        function clearCodeInput() {
+            document.getElementById("code-input").value = "";
+        }
+    </script>
+</body>
+</html>
